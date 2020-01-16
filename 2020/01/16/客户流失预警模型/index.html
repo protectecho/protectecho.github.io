@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>手机APP客户流失预警模型 | Hexo</title><meta name="description" content="手机APP客户流失预警模型"><meta name="keywords" content="客户流失 建模"><meta name="author" content="Fei Cai"><meta name="copyright" content="Fei Cai"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="canonical" href="http://yoursite.com/2020/01/16/客户流失预警模型/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="手机APP客户流失预警模型"><meta name="twitter:description" content="手机APP客户流失预警模型"><meta name="twitter:image" content="http://p3.music.126.net/_3DPJUNyVMXWjEyosLtnpw==/109951163664355172.jpg"><meta property="og:type" content="article"><meta property="og:title" content="手机APP客户流失预警模型"><meta property="og:url" content="http://yoursite.com/2020/01/16/客户流失预警模型/"><meta property="og:site_name" content="Hexo"><meta property="og:description" content="手机APP客户流失预警模型"><meta property="og:image" content="http://p3.music.126.net/_3DPJUNyVMXWjEyosLtnpw==/109951163664355172.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="next" title="Hello World" href="http://yoursite.com/2019/08/22/hello-world/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?352b4eb4ed68094eefa6403a281f3f74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'true',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: '添加书签',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天'
+
+  
+}</script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#手机app客户流失预警模型"><span class="toc-number">1.</span> <span class="toc-text"> 手机APP客户流失预警模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-数据准备与调研"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 数据准备与调研</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-确定客户是否流失三个月内都没有登陆app就认为客户流失"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1.1 确定客户是否流失（三个月内都没有登陆app就认为客户流失）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-构建客户特征宽表"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 1.2 构建客户特征宽表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-客户重要程度定义"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 1.3 客户重要程度定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-建模"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 建模</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-特征重要度分析"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 2.1 特征重要度分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-基于gbdt来构建手机app流失预警模型"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2.2 基于GBDT来构建手机app流失预警模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-预警模型结果分析"><span class="toc-number">1.3.</span> <span class="toc-text"> 3. 预警模型结果分析</span></a></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/Photo/post.png)"><div id="page-header"><span class="pull-left"> <a class="blog_title" id="site-name" href="/">Hexo</a></span><div class="open toggle-menu pull-right"><div class="menu-icon-first"></div><div class="menu-icon-second"></div><div class="menu-icon-third"></div></div><span class="pull-right menus"><div class="mobile_author_icon"><img class="lozad" src="http://p3.music.126.net/_3DPJUNyVMXWjEyosLtnpw==/109951163664355172.jpg" onerror="onerror=null;src='/img/friend_404.gif'"><div class="mobile_author-info__description"></div></div><hr><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a><script>document.body.addEventListener('touchstart', function(){ });</script></div></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title"><div class="posttitle">手机APP客户流失预警模型</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-01-16<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-01-16</time></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="手机app客户流失预警模型"><a class="markdownIt-Anchor" href="#手机app客户流失预警模型"></a> 手机APP客户流失预警模型</h1>
+<h2 id="1-数据准备与调研"><a class="markdownIt-Anchor" href="#1-数据准备与调研"></a> 1. 数据准备与调研</h2>
+<h3 id="11-确定客户是否流失三个月内都没有登陆app就认为客户流失"><a class="markdownIt-Anchor" href="#11-确定客户是否流失三个月内都没有登陆app就认为客户流失"></a> 1.1 确定客户是否流失（三个月内都没有登陆app就认为客户流失）</h3>
+<p>要构建客户流失预警模型，首先要清楚在手机app上，什么样的客户才算是流失？这里，我们分别取了整合中2019年4，5，6，7，8这四个月的客户来进行分析，如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">时间</th>
+<th style="text-align:center">本月只登陆一次的客户</th>
+<th style="text-align:center">三个月以后依然使用app的客户数</th>
+<th style="text-align:center">剩余的客户数</th>
+<th style="text-align:center">流失率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">t=4月</td>
+<td style="text-align:center">99795</td>
+<td style="text-align:center">43081</td>
+<td style="text-align:center">56714</td>
+<td style="text-align:center">0.5683</td>
+</tr>
+<tr>
+<td style="text-align:center">t=5月</td>
+<td style="text-align:center">104980</td>
+<td style="text-align:center">39181</td>
+<td style="text-align:center">65799</td>
+<td style="text-align:center">0.6267</td>
+</tr>
+<tr>
+<td style="text-align:center">t=6月</td>
+<td style="text-align:center">106390</td>
+<td style="text-align:center">32501</td>
+<td style="text-align:center">73889</td>
+<td style="text-align:center">0.6945</td>
+</tr>
+<tr>
+<td style="text-align:center">t=7月</td>
+<td style="text-align:center">146912</td>
+<td style="text-align:center">36177</td>
+<td style="text-align:center">110735</td>
+<td style="text-align:center">0.7537</td>
+</tr>
+<tr>
+<td style="text-align:center">t=8月</td>
+<td style="text-align:center">139658</td>
+<td style="text-align:center">19329（只能观察12月份）</td>
+<td style="text-align:center">120329</td>
+<td style="text-align:center">0.8615</td>
+</tr>
+</tbody>
+</table>
+<p>注：流失率=三个月没有登录app的客户数/本月只登陆一次的客户，它主要用来判断这个“三个月”的观察期是否合理，数据调研时间为12月20号</p>
+<p>可以看到，在“剩余的客户”这一栏里，这些客户在接下来很长一段时间里都没有登陆过上行app，近乎处于流失状态。因此，可以对这些流失的客户进行建模，从而来挖掘流失的特征和规律。</p>
+<!-- * 流失客户定义：若某个客户在接下来n个月内都没有在手机app上出现，则认为客户流失
+
+而判断该定义是否正确，还需要通过观察客户之后的行为是否在手机app上进行操作。
+* 流失客户的观察期：取流失客户近半年的行为记录来判断客户是否在上行app上进行操作  -->
+<h3 id="12-构建客户特征宽表"><a class="markdownIt-Anchor" href="#12-构建客户特征宽表"></a> 1.2 构建客户特征宽表</h3>
+<p>主要从四个方面来构建客户的特征宽表：</p>
+<ul>
+<li>客户的个人信息，如客户的年龄，国籍，婚姻状况，健康状况等信息</li>
+<li>客户的银行渠道行为，如机具的存款笔数，取款笔数，网银登录次数，转账笔数，手机的登录次数，密码错误次数等</li>
+<li>客户的银行资产、保险、理财的所持情况，如总资产余额，存款余额，贷款余额，保险余额等</li>
+<li>客户的各种各样的标识，如是否是养老金客户，是否是个贷客户等</li>
+</ul>
+<p>最后，总共筛选出客户的214个特征来构建客户特征宽表</p>
+<h3 id="13-客户重要程度定义"><a class="markdownIt-Anchor" href="#13-客户重要程度定义"></a> 1.3 客户重要程度定义</h3>
+<p>客户的重要程度通过三个值来综合考量：</p>
+<ul>
+<li>R：最后交易距离当前天数</li>
+<li>F：累计交易次数</li>
+<li>M：累计交易金额</li>
+</ul>
+<p>基于R，F，M来考虑，客户的类型如下所示：<br>
+<img alt="avatar" data-src="../../public/img/%E5%AE%A2%E6%88%B7%E7%B1%BB%E5%9E%8B.jpg" class="lozad"></p>
+<h2 id="2-建模"><a class="markdownIt-Anchor" href="#2-建模"></a> 2. 建模</h2>
+<p>这次以2019年4月份的2450985个手机app客户作为建模对象，其中，56714个客户来作为流失客户（负样本），剩余的2394271个客户作为非流失客户（正样本），</p>
+<h3 id="21-特征重要度分析"><a class="markdownIt-Anchor" href="#21-特征重要度分析"></a> 2.1 特征重要度分析</h3>
+<h3 id="22-基于gbdt来构建手机app流失预警模型"><a class="markdownIt-Anchor" href="#22-基于gbdt来构建手机app流失预警模型"></a> 2.2 基于GBDT来构建手机app流失预警模型</h3>
+<h2 id="3-预警模型结果分析"><a class="markdownIt-Anchor" href="#3-预警模型结果分析"></a> 3. 预警模型结果分析</h2>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Fei Cai</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/01/16/客户流失预警模型/">http://yoursite.com/2020/01/16/客户流失预警模型/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/客户流失-建模/">客户流失 建模    </a></div><div class="post_share"><div class="social-share" data-image="http://p3.music.126.net/_3DPJUNyVMXWjEyosLtnpw==/109951163664355172.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-buttom"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/wechat.jpg"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2019/08/22/hello-world/"><img class="next_cover lozad" data-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Hello World</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: 'd7c3a1a82c8709fe4220',
+  clientSecret: 'ab78ddc96cbb2eb76f433001092ebcbcf2d7bfa7',
+  repo: 'https://github.com/protectecho?tab=repositories',
+  owner: 'protectecho',
+  admin: 'protectecho',
+  id: md5(decodeURI(location.pathname)),
+  language: ''
+})
+gitalk.render('gitalk-container')</script></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2020 By Fei Cai</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://protectecho.github.io/">blog</a>!</div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><section class="rightside" id="rightside"><i class="fa fa-book" id="readmode" title="阅读模式"> </i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换">简</a><i class="fa fa-moon-o nightshift" id="nightshift" title="夜间模式"></i></section><div id="post_bottom"><div id="post_bottom_items"><a id="to_comment" href="#post-comment"><i class="scroll_to_comment fa fa-comments"></i></a><i class="fa fa-list" id="mobile_toc"></i><div id="toc_mobile"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#手机app客户流失预警模型"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text"> 手机APP客户流失预警模型</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#1-数据准备与调研"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text"> 1. 数据准备与调研</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#11-确定客户是否流失三个月内都没有登陆app就认为客户流失"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text"> 1.1 确定客户是否流失（三个月内都没有登陆app就认为客户流失）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#12-构建客户特征宽表"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text"> 1.2 构建客户特征宽表</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#13-客户重要程度定义"><span class="toc_mobile_items-number">1.1.3.</span> <span class="toc_mobile_items-text"> 1.3 客户重要程度定义</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#2-建模"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text"> 2. 建模</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#21-特征重要度分析"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text"> 2.1 特征重要度分析</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#22-基于gbdt来构建手机app流失预警模型"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text"> 2.2 基于GBDT来构建手机app流失预警模型</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3-预警模型结果分析"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text"> 3. 预警模型结果分析</span></a></li></ol></li></ol></div></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script src="/js/nightshift.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" data-click="false"></script><script id="ribbon" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/js/piao.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@1.2.2/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script>const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();</script></body></html>
