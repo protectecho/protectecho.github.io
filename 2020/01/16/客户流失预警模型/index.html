@@ -164,7 +164,7 @@
 <li>采用了集成的思想，将多颗决策分类树的结果进行综合考虑，不会单一；</li>
 <li>具备算法的可解释性；</li>
 <li>易于处理连续性特征，本次样本连续性特征较多；</li>
-<li>当然，最重要的原因还是它的预测准确率要比其他两个模型<font color="#FF0000" size="3">高</font><sup>_</sup>，若你选择的另外算法计算出来的准确率比GBDT高的话，emmm，那就当我前面四点没说。。。</li>
+<li>当然，最重要的原因还是它的预测准确率要比其他两个模型<font color="#FF0000" size="3">高</font>，若你选择的另外算法计算出来的准确率比GBDT高的话，emmm，那就当我前面四点没说。。。</li>
 </ul>
 <p>其中，构建的GBDT模型的参数分别如下所示：</p>
 <table>
@@ -205,7 +205,7 @@
 </tr>
 </tbody>
 </table>
-<p>最后，将构建好的手机app流失预警模型对2019年5月份的所有客户（2450985个客户）进行测试，来判断这个月的客户哪些是近乎于流失的客户，哪些是未流失的客户。训练和测试结果如下图所示，其中，训练样本是4月份处理了样本不均衡的测试集：</p>
+<p>最后，将构建好的手机app流失预警模型对2019年5月份的所有客户（2450985个客户）进行测试，来判断这个月的客户哪些是近乎于流失的客户，哪些是未流失的客户。训练和测试结果如下图所示，其中，训练样本是4月份处理了样本不均衡的训练集：</p>
 <p><img alt="1. 模型的训练过程" data-src="../../../../img/train.PNG" class="lozad"></p>
 <p><img alt="2. 模型的ROC图" data-src="../../../../img/test1.PNG" class="lozad"></p>
 <p><img alt="3. 模型在测试集上的表现" data-src="../../../../img/test2.PNG" class="lozad"></p>
@@ -213,7 +213,7 @@
 <p>可以看到，在图三中，该模型在5月份的测试集中的AUC可以达到0.931，特别是，<font color="#FF0000" size="3">在5月份164824个流失客户中，该模型预测正确的客户数目为149435，即达到90.66%的正确率</font></p>
 <h2 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3. 总结</h2>
 <p>以上只是对客户流失预警模型的初步探索和构建，还有许多的想法没有实现，比如特征的筛选，特征的组合构建，多模型算法的集成，xgboost算法的尝试等等，过完年后在一一完善啦。</p>
-<p>最后，码字不易，各位老师觉得还行的话，就赏杯咖啡呗，微信和支付宝都可以哦<sub>（开玩笑开玩笑，当然是祝各位老师新年快乐，阖家欢乐</sub>）</p>
+<p>最后，码字不易，各位老师觉得还行的话，就赏杯咖啡呗，微信和支付宝都可以哦~（开玩笑开玩笑，当然是祝各位老师新年快乐，阖家欢乐~）</p>
 <img style="zoom:50%" div align="center" data-src="../../../../img/大佬.jpg" class="lozad">
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Fei Cai</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/01/16/客户流失预警模型/">http://yoursite.com/2020/01/16/客户流失预警模型/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/客户流失-建模/">客户流失 建模    </a></div><div class="post_share"><div class="social-share" data-image="http://p3.music.126.net/_3DPJUNyVMXWjEyosLtnpw==/109951163664355172.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-buttom"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/wechat.jpg"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2019/08/22/hello-world/"><img class="next_cover lozad" data-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Hello World</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
   clientID: 'd7c3a1a82c8709fe4220',
