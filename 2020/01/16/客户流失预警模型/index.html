@@ -98,12 +98,12 @@
 <li>M：累计交易金额</li>
 </ul>
 <p>基于R，F，M来考虑，客户的类型如下所示：<br>
-<img style="zoom:70%" div align="center" data-src="../../public/img/客户类型.PNG" class="lozad"></p>
+<img style="zoom:70%" div align="center" data-src="../../../../img/客户类型.PNG" class="lozad"></p>
 <h2 id="2-建模"><a class="markdownIt-Anchor" href="#2-建模"></a> 2. 建模</h2>
 <p>本次建模以2019年4月份的1222113个手机app客户作为建模对象，其中，95095个客户来作为流失客户（负样本），剩余的1127018个客户作为非流失客户（正样本，正样本：负样本=10:1）。这里解决样本非均衡的方法是利用先知平台的“数据拆分”模块，从正样本中抽取与负样本相近数目的客户，并以7:3的比例进行划分（70%做训练集，30%做测试集）</p>
 <h3 id="21-特征重要度分析"><a class="markdownIt-Anchor" href="#21-特征重要度分析"></a> 2.1 特征重要度分析</h3>
 <p>这里特征重要度的分析是通过先知平台的“特征重要性分析”模块，该模块采用的是Slot-Wise LR算法（针对样本表中的每一个特征训练一个LR模型，得到每个特征的Progressive AUC值，并且将此AUC作为该特征的重要性的值，通过该值可以反映每个特征和目标值的AUC相关性）。最后得到如下特征分析图：<br>
-<img alt="特征重要度" data-src="../../public/img/%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E5%BA%A6.PNG" class="lozad"></p>
+<img alt="特征重要度" data-src="../../../../img/特征重要度.PNG" class="lozad"></p>
 <p>其中前十位的特征分别如下表所示：</p>
 <table>
 <thead>
@@ -157,7 +157,7 @@
 </table>
 <h3 id="22-基于gbdt来构建手机app流失预警模型"><a class="markdownIt-Anchor" href="#22-基于gbdt来构建手机app流失预警模型"></a> 2.2 基于GBDT来构建手机app流失预警模型</h3>
 <p>划分好训练集和测试集后的步骤就是开始构建预警模型，这里分别采用了先知平台的DNN、GBDT和SVM模型。如下图所示：<br>
-<img alt="模型DAG图" data-src="../../public/img/%E6%A8%A1%E5%9E%8BDAG%E5%9B%BE.PNG" class="lozad"></p>
+<img alt="模型DAG图" data-src="../../../../img/模型DAG图.PNG" class="lozad"></p>
 <p>这里最后选择了GBDT模型。因为相较于其他两种模型，GBDT的优势在于：</p>
 <ul>
 <li>可以自动筛选特征重要度高的特征，剔除无效且重复的因素；</li>
@@ -206,15 +206,15 @@
 </tbody>
 </table>
 <p>最后，将构建好的手机app流失预警模型对2019年5月份的所有客户（2450985个客户）进行测试，来判断这个月的客户哪些是近乎于流失的客户，哪些是未流失的客户。训练和测试结果如下图所示，其中，训练样本是4月份处理了样本不均衡的测试集：</p>
-<p><img alt="1. 模型的训练过程" data-src="../../public/img/train.PNG" class="lozad"></p>
-<p><img alt="2. 模型的ROC图" data-src="../../public/img/test1.PNG" class="lozad"></p>
-<p><img alt="3. 模型在测试集上的表现" data-src="../../public/img/test2.PNG" class="lozad"></p>
-<p><img alt="4. 测试集在各个阈值上的划分情况" data-src="../../public/img/test3.PNG" class="lozad"></p>
+<p><img alt="1. 模型的训练过程" data-src="../../../../img/train.PNG" class="lozad"></p>
+<p><img alt="2. 模型的ROC图" data-src="../../../../img/test1.PNG" class="lozad"></p>
+<p><img alt="3. 模型在测试集上的表现" data-src="../../../../img/test2.PNG" class="lozad"></p>
+<p><img alt="4. 测试集在各个阈值上的划分情况" data-src="../../../../img/test3.PNG" class="lozad"></p>
 <p>可以看到，在图三中，该模型在5月份的测试集中的AUC可以达到0.931，特别是，<font color="#FF0000" size="3">在5月份164824个流失客户中，该模型预测正确的客户数目为149435，即达到90.66%的正确率</font></p>
 <h2 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3. 总结</h2>
 <p>以上只是对客户流失预警模型的初步探索和构建，还有许多的想法没有实现，比如特征的筛选，特征的组合构建，多模型算法的集成，xgboost算法的尝试等等，过完年后在一一完善啦。</p>
 <p>最后，码字不易，各位老师觉得还行的话，就赏杯咖啡呗，微信和支付宝都可以哦<sub>（开玩笑开玩笑，当然是祝各位老师新年快乐，阖家欢乐</sub>）</p>
-<img style="zoom:50%" div align="center" data-src="../../public/img/大佬.jpg" class="lozad">
+<img style="zoom:50%" div align="center" data-src="../../../../img/大佬.jpg" class="lozad">
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Fei Cai</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/01/16/客户流失预警模型/">http://yoursite.com/2020/01/16/客户流失预警模型/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/客户流失-建模/">客户流失 建模    </a></div><div class="post_share"><div class="social-share" data-image="http://p3.music.126.net/_3DPJUNyVMXWjEyosLtnpw==/109951163664355172.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-buttom"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/wechat.jpg"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2019/08/22/hello-world/"><img class="next_cover lozad" data-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Hello World</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
   clientID: 'd7c3a1a82c8709fe4220',
   clientSecret: 'ab78ddc96cbb2eb76f433001092ebcbcf2d7bfa7',
